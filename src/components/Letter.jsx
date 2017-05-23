@@ -1,17 +1,15 @@
 import React from 'react';
 
-const Letter = ({ letter }) =>  {
+const Letter = ({ letter, onLetterSelect }) =>  {
   return (
-    <div className="
-      bg-light-purple
-      fl
-      ma3
-      shadow-4
-      white
-      w-20
-    ">
-      <p className="tc">{letter}</p>
-    </div>
+    <li
+      className="dib ma3 mb2 bg-light-purple w-20 shadow-4"
+      onClick={ () => onLetterSelect(letter) }
+    >
+      <p className="f6 f5-ns b db tc white">
+        {letter}
+      </p>
+    </li>
   );
 }
 
