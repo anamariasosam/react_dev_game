@@ -16,6 +16,7 @@ export default class LettersList extends Component {
     }
 
     this.guessWord = this.guessWord.bind(this);
+    this.clearData = this.clearData.bind(this);
   }
 
   componentDidMount() {
@@ -56,10 +57,14 @@ export default class LettersList extends Component {
     }
 
     if (this.state.wordsGuess.includes(word)) {
-      this.setState({
-        word: '',
-      });
+      this.clearData();
     }
+  }
+
+  clearData() {
+    this.setState({
+      word: '',
+    });
   }
 
   render() {
@@ -86,6 +91,12 @@ export default class LettersList extends Component {
         <ul className="list pv4">
           {wordsGuessed}
         </ul>
+
+        <p
+          className="tc pointer grow"
+          onClick={this.clearData}>
+            Clear
+        </p>
       </div>
     );
   }
