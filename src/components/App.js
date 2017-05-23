@@ -79,12 +79,13 @@ class App extends Component {
           {wordsGuessed}
         </ul>
 
-        <button
-          className="tc pointer grow"
+        <a
+          className="f6 ba bw1 pv2 mb2 near-black w3 tc db center no-underline dim"
           onClick={this.clearData}
+          href="#0"
         >
-            Clear
-        </button>
+        Clear
+        </a>
       </div>
     );
   }

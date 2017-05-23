@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 
 const Letter = ({ letter, onLetterSelect }) =>
   (
-    <li className="dib ma3 mb2 bg-light-purple shadow-4 pointer">
-      <button
-        className="f6 f5-ns b db tc white w-20"
+    <li className="dib">
+      <a
+        className="dim f6 bb bt bl ph3 mh2 mv2 pv2 dib near-white bg-light-purple w3 tc link"
         onClick={() => onLetterSelect(letter)}
+        href="#0"
       >
         {letter}
-      </button>
+      </a>
     </li>
   );
 
