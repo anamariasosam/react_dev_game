@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import Letter from './Letter'
+import Word from './Word'
 
 export default class LettersList extends Component {
   constructor(props) {
@@ -22,9 +23,9 @@ export default class LettersList extends Component {
 
 
   populateWords() {
-    let words =  ['Ruby', 'Rails'];
+    let words =  ['ruby', 'rails'];
 
-    var letters = words.join("").toUpperCase().split("").sort();
+    var letters = words.join('').toUpperCase().split('').sort();
 
     letters = letters.filter(
       function( item, index, inputArray ) {
@@ -34,6 +35,7 @@ export default class LettersList extends Component {
 
     this.setState({
       letters,
+      words,
     });
   }
 
@@ -42,17 +44,26 @@ export default class LettersList extends Component {
   }
 
   render() {
+    const lettersList = this.state.letters.map((letter, index) =>
+      <Letter
+        letter={letter}
+        key={index}
+        onLetterSelect={ this.guessWord }
+       />
+    );
+
+    let word = this.state.word.toLowerCase();
+    if (this.state.words.includes(word)) {
+      console.log('si esta');
+    }
+
     return (
-      <div className="ex">
+      <div>
         <ul className="list pv4">
-          {this.state.letters.map((letter, index) => (
-            <Letter
-              letter={letter}
-              key={index}
-              onLetterSelect={ this.guessWord }
-             />
-          ))}
+          {lettersList}
         </ul>
+
+        <Word word={this.state.word} />
       </div>
     );
   }
