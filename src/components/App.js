@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Header from './Header'
+import Header from './Header';
 
-import LettersList from './LettersList'
-import Word from './Word'
-import CurrentWord from './CurrentWord'
+import LettersList from './LettersList';
+import Word from './Word';
+import CurrentWord from './CurrentWord';
 
 class App extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class App extends Component {
       wordsGuess: [],
       letters: [],
       word: '',
-    }
+    };
 
     this.guessWord = this.guessWord.bind(this);
     this.clearData = this.clearData.bind(this);
@@ -26,15 +26,11 @@ class App extends Component {
 
 
   populateWords() {
-    let words =  ['ruby', 'rails', 'irb', 'erb'];
+    const words = ['ruby', 'rails', 'irb', 'erb'];
 
-    var letters = words.join('').toUpperCase().split('').sort();
+    let letters = words.join('').toUpperCase().split('').sort();
 
-    letters = letters.filter(
-      function( item, index, inputArray ) {
-        return inputArray.indexOf(item) === index;
-      }
-    );
+    letters = letters.filter((item, index, inputArray) => inputArray.indexOf(item) === index);
 
     this.setState({
       letters,
@@ -45,11 +41,10 @@ class App extends Component {
   guessWord(selectedLetter) {
     this.setState({ word: this.state.word.concat(selectedLetter) });
 
-    let word = this.state.word.concat(selectedLetter).toLowerCase();
+    const word = this.state.word.concat(selectedLetter).toLowerCase();
     if (this.state.words.includes(word) && !this.state.wordsGuess.includes(word)) {
-
-      var wordsGuess = this.state.wordsGuess.slice();
-      wordsGuess.push(word)
+      const wordsGuess = this.state.wordsGuess.slice();
+      wordsGuess.push(word);
 
       this.setState({
         wordsGuess,
@@ -69,16 +64,14 @@ class App extends Component {
   }
 
   render() {
-    const wordsGuessed = this.state.wordsGuess.map((word, index) =>
-      <Word word={word} key={index} />
-    );
+    const wordsGuessed = this.state.wordsGuess.map(word => <Word word={word} key={word} />);
 
     return (
       <div>
-        <Header title="Dev Game"/>
+        <Header title="Dev Game" />
         <LettersList
           letters={this.state.letters}
-          onLetterSelect={ this.guessWord }
+          onLetterSelect={this.guessWord}
         />
         <CurrentWord word={this.state.word} />
 
@@ -86,11 +79,12 @@ class App extends Component {
           {wordsGuessed}
         </ul>
 
-        <p
+        <button
           className="tc pointer grow"
-          onClick={this.clearData}>
+          onClick={this.clearData}
+        >
             Clear
-        </p>
+        </button>
       </div>
     );
   }

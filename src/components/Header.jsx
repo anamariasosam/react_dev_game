@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
-import '../styles/Header.css';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class Header extends Component {
-  render() {
-    return (
-      <div className="
-        bg-pink
-        mb3
-        pa3
-        shadow-5
-        tc
-        white
-      ">
-        <h2>
-          { this.props.title }
-        </h2>
-      </div>
-    );
-  }
-}
+const Header = ({ title }) =>
+  (
+    <div className="
+      bg-pink
+      mb3
+      pa3
+      shadow-5
+      tc
+      white"
+    >
+      <h2>
+        {title}
+      </h2>
+    </div>
+  );
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default Header;
