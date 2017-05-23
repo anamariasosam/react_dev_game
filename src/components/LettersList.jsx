@@ -9,8 +9,8 @@ export default class LettersList extends Component {
 
     this.state = {
       words: [],
+      wordsGuess: [],
       letters: [],
-      selectedLetter: null,
       word: '',
     }
 
@@ -41,6 +41,11 @@ export default class LettersList extends Component {
 
   guessWord(selectedLetter) {
     this.setState({ word: this.state.word.concat(selectedLetter) });
+
+    let word = this.state.word.concat(selectedLetter).toLowerCase();
+    if (this.state.words.includes(word)) {
+      alert('si esta')
+    }
   }
 
   render() {
@@ -52,11 +57,6 @@ export default class LettersList extends Component {
        />
     );
 
-    let word = this.state.word.toLowerCase();
-    if (this.state.words.includes(word)) {
-      alert('si esta');
-    }
-
     return (
       <div>
         <ul className="list pv4">
@@ -64,6 +64,7 @@ export default class LettersList extends Component {
         </ul>
 
         <Word word={this.state.word} />
+        <Word word={this.state.wordsGuess[0]} />
       </div>
     );
   }
