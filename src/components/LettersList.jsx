@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Letter from './Letter'
 import Word from './Word'
+import CurrentWord from './CurrentWord'
 
 export default class LettersList extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ export default class LettersList extends Component {
 
 
   populateWords() {
-    let words =  ['ruby', 'rails'];
+    let words =  ['ruby', 'rails', 'irb', 'erb'];
 
     var letters = words.join('').toUpperCase().split('').sort();
 
@@ -43,8 +44,21 @@ export default class LettersList extends Component {
     this.setState({ word: this.state.word.concat(selectedLetter) });
 
     let word = this.state.word.concat(selectedLetter).toLowerCase();
-    if (this.state.words.includes(word)) {
-      alert('si esta')
+    if (this.state.words.includes(word) && !this.state.wordsGuess.includes(word)) {
+
+      var wordsGuess = this.state.wordsGuess.slice();
+      wordsGuess.push(word)
+
+      this.setState({
+        wordsGuess,
+        word: '',
+      });
+    }
+
+    if (this.state.wordsGuess.includes(word)) {
+      this.setState({
+        word: '',
+      });
     }
   }
 
@@ -57,14 +71,21 @@ export default class LettersList extends Component {
        />
     );
 
+    const wordsGuessed = this.state.wordsGuess.map((word, index) =>
+      <Word word={word} key={index} />
+    );
+
     return (
       <div>
         <ul className="list pv4">
           {lettersList}
         </ul>
 
-        <Word word={this.state.word} />
-        <Word word={this.state.wordsGuess[0]} />
+        <CurrentWord word={this.state.word} />
+
+        <ul className="list pv4">
+          {wordsGuessed}
+        </ul>
       </div>
     );
   }
