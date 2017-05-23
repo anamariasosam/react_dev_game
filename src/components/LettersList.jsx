@@ -54,7 +54,7 @@ export default class LettersList extends Component {
 
     let word = this.state.word.toLowerCase();
     if (this.state.words.includes(word)) {
-      console.log('si esta');
+      alert('si esta');
     }
 
     return (
