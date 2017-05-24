@@ -1,23 +1,33 @@
 import React, { Component } from 'react';
-import Header from './Header';
 
+import Level from '../Level';
+
+import Header from './Header';
 import LettersList from './LettersList';
 import Word from './Word';
 import CurrentWord from './CurrentWord';
+
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      words: [],
+      levels: [
+        {
+          letters: [],
+          level: 0,
+          words: [],
+        },
+      ],
       wordsGuess: [],
-      letters: [],
       word: '',
+      currentLevel: 0,
     };
 
     this.guessWord = this.guessWord.bind(this);
     this.clearData = this.clearData.bind(this);
+    this.knowLevel = this.knowLevel.bind(this);
   }
 
   componentDidMount() {
@@ -26,23 +36,27 @@ class App extends Component {
 
 
   populateWords() {
-    const words = ['ruby', 'rails', 'irb', 'erb'];
-
-    let letters = words.join('').toUpperCase().split('').sort();
-
-    letters = letters.filter((item, index, inputArray) => inputArray.indexOf(item) === index);
+    const levels = [
+      new Level({ level: 0, words: ['ruby', 'rails', 'irb', 'erb'] }),
+      new Level({ level: 1, words: ['react', 'redux', 'jsx'] }),
+    ];
 
     this.setState({
-      letters,
-      words,
+      levels,
     });
   }
 
   guessWord(selectedLetter) {
-    this.setState({ word: this.state.word.concat(selectedLetter) });
+    const level = this.state.currentLevel;
 
+    this.setState({ word: this.state.word.concat(selectedLetter) });
     const word = this.state.word.concat(selectedLetter).toLowerCase();
-    if (this.state.words.includes(word) && !this.state.wordsGuess.includes(word)) {
+
+    if (this.state.wordsGuess.includes(word)) {
+      this.clearData();
+    }
+
+    if (this.state.levels[level].words.includes(word)) {
       const wordsGuess = this.state.wordsGuess.slice();
       wordsGuess.push(word);
 
@@ -50,27 +64,36 @@ class App extends Component {
         wordsGuess,
         word: '',
       });
-    }
 
-    if (this.state.wordsGuess.includes(word)) {
-      this.clearData();
+      this.knowLevel(wordsGuess);
     }
   }
 
-  clearData() {
-    this.setState({
-      word: '',
-    });
+  clearData() { this.setState({ word: '' }); }
+
+  knowLevel(wordsGuess) {
+    const level = this.state.currentLevel;
+    if (wordsGuess.length === this.state.levels[level].words.length) {
+      const currentLevel = this.state.currentLevel + 1;
+      this.setState({
+        currentLevel,
+        wordsGuess: [],
+      });
+    }
   }
 
   render() {
     const wordsGuessed = this.state.wordsGuess.map(word => <Word word={word} key={word} />);
+    const level = this.state.currentLevel;
 
     return (
       <div>
         <Header title="Dev Game" />
+        <p className="tc">
+          {this.state.wordsGuess.length} / {this.state.levels[level].words.length}
+        </p>
         <LettersList
-          letters={this.state.letters}
+          letters={this.state.levels[level].letters}
           onLetterSelect={this.guessWord}
         />
         <CurrentWord word={this.state.word} />
@@ -84,7 +107,7 @@ class App extends Component {
           onClick={this.clearData}
           href="#0"
         >
-        Clear
+          Clear
         </a>
       </div>
     );
