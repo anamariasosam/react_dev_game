@@ -37,8 +37,8 @@ class App extends Component {
 
   populateWords() {
     const levels = [
-      new Level({ level: 0, words: ['ruby', 'rails', 'erb', 'irb', 'rb'] }),
-      new Level({ level: 1, words: ['react', 'redux', 'jsx'] }),
+      new Level({ level: 0, words: ['ruby', 'rails'] }),
+      new Level({ level: 1, words: ['react', 'jsx'] }),
     ];
 
     this.setState({
@@ -74,13 +74,19 @@ class App extends Component {
   knowLevel(wordsGuess) {
     const level = this.state.currentLevel;
     if (wordsGuess.length === this.state.levels[level].words.length) {
-      const currentLevel = this.state.currentLevel + 1;
+      let currentLevel = this.state.currentLevel + 1;
+
+      if (currentLevel === this.state.levels.length) {
+        alert('🎉🎉 THE END 🎉🎉');
+        currentLevel = 0;
+      } else {
+        alert('🎉🎉 NEXT LEVEL 🎉🎉');
+      }
+
       this.setState({
         currentLevel,
         wordsGuess: [],
       });
-
-      alert('🎉🎉 NEXT LEVEL 🎉🎉');
     }
   }
 
