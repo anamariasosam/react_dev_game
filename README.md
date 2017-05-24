@@ -3,8 +3,7 @@
 ![dev Game demo](https://github.com/anamariasosam/react_dev_game/blob/master/game.gif)
 
 
-## ¿ Cómo usar ?
-En la terminal
+## ¿ How to run ?
 
 ```
 	> git clone https://github.com/anamariasosam/react_dev_game.git
