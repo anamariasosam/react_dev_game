@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Button = ({ text, buttonHandleClick }) => (
   <a
-    className="f6 ba bw1 pv2 mb2 near-black w3 tc db center no-underline dim"
+    className="f6 ba pv2 mb2 hot-pink w3 tc db center link dim"
     onClick={() => buttonHandleClick()}
     href="#0"
   >
