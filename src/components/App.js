@@ -7,7 +7,6 @@ import LettersList from './LettersList';
 import Word from './Word';
 import CurrentWord from './CurrentWord';
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +36,7 @@ class App extends Component {
 
   populateWords() {
     const levels = [
-      new Level({ level: 0, words: ['ruby', 'rails', 'irb', 'erb'] }),
+      new Level({ level: 0, words: ['ruby', 'rails'] }),
       new Level({ level: 1, words: ['react', 'redux', 'jsx'] }),
     ];
 
@@ -79,6 +78,8 @@ class App extends Component {
         currentLevel,
         wordsGuess: [],
       });
+
+      alert('🎉🎉 NEXT LEVEL 🎉🎉');
     }
   }
 
