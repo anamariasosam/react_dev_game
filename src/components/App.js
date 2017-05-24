@@ -29,7 +29,6 @@ class App extends Component {
     };
 
     this.guessWord = this.guessWord.bind(this);
-    this.clearData = this.clearData.bind(this);
     this.removeLast = this.removeLast.bind(this);
     this.knowLevel = this.knowLevel.bind(this);
   }
@@ -41,8 +40,9 @@ class App extends Component {
 
   populateWords() {
     const levels = [
-      new Level({ level: 0, words: ['ruby', 'rails'] }),
-      new Level({ level: 1, words: ['react', 'jsx'] }),
+      new Level({ topic: 'HTML', words: ['ul', 'li', 'p', 'img', 'div'] }),
+      new Level({ topic: 'Ruby', words: ['ruby', 'rails', 'irb', 'rb', 'erb'] }),
+      new Level({ topic: 'React', words: ['react', 'jsx', 'state', 'this'] }),
     ];
 
     this.setState({
@@ -52,13 +52,9 @@ class App extends Component {
 
   guessWord(selectedLetter) {
     const level = this.state.currentLevel;
+    const word = this.state.word.concat(selectedLetter);
 
-    this.setState({ word: this.state.word.concat(selectedLetter) });
-    const word = this.state.word.concat(selectedLetter).toLowerCase();
-
-    if (this.state.wordsGuess.includes(word)) {
-      this.clearData();
-    }
+    this.setState({ word });
 
     if (this.state.levels[level].words.includes(word) && !this.state.wordsGuess.includes(word)) {
       const wordsGuess = this.state.wordsGuess.slice();
@@ -76,13 +72,13 @@ class App extends Component {
     }
   }
 
-  clearData() { this.setState({ word: '' }); }
   removeLast() {
     this.setState({ word: this.state.word.slice(0, -1) });
   }
 
   knowLevel(wordsGuess) {
     const level = this.state.currentLevel;
+
     if (wordsGuess.length === this.state.levels[level].words.length) {
       let currentLevel = this.state.currentLevel + 1;
 
@@ -104,6 +100,7 @@ class App extends Component {
 
   render() {
     const level = this.state.currentLevel;
+    const topic = this.state.levels[level].topic;
 
     return (
       <div>
@@ -112,6 +109,7 @@ class App extends Component {
           numberOfGuessWords={this.state.wordsGuess.length}
           numberOfWords={this.state.levels[level].words.length}
           level={level + 1}
+          topic={topic}
         />
 
         <GitHubRibbon />

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Header = ({ title, numberOfGuessWords, numberOfWords, level }) =>
+const Header = ({ title, numberOfGuessWords, numberOfWords, level, topic }) =>
 (
   <header className="tc pv4 pv5-ns">
     <img
@@ -10,20 +10,23 @@ const Header = ({ title, numberOfGuessWords, numberOfWords, level }) =>
       alt="dev game logo"
     />
     <h1 className="f5 f4-ns fw6 mid-gray">{title}</h1>
-    <h2 className="f6 gray fw2 ttu tracked">
-      Level: {level}
-    </h2>
-    <h2 className="f6 gray fw2 ttu tracked">
-      Words: {numberOfGuessWords} / {numberOfWords}
-    </h2>
+    <p className="f6 gray fw2 ttu tracked ">
+      <span className="b">Topic:</span> {topic}
+    </p>
+    <p className="f6 gray fw2 ttu tracked ">
+      <span className="b">Level:</span> {level}
+    </p>
+    <p className="f6 gray fw2 ttu tracked">
+      <span className="b">Words:</span> {numberOfGuessWords} / {numberOfWords}
+    </p>
   </header>
 );
-
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   numberOfGuessWords: PropTypes.number.isRequired,
   numberOfWords: PropTypes.number.isRequired,
   level: PropTypes.number.isRequired,
+  topic: PropTypes.string.isRequired,
 };
 
 export default Header;
