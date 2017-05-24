@@ -7,6 +7,8 @@ import Button from './Button';
 import LettersList from './LettersList';
 import WordsList from './WordsList';
 import CurrentWord from './CurrentWord';
+import GitHubRibbon from './GitHubRibbon';
+import Footer from './Footer';
 
 class App extends Component {
   constructor(props) {
@@ -23,10 +25,12 @@ class App extends Component {
       wordsGuess: [],
       word: '',
       currentLevel: 0,
+      wordsGuessed: 0,
     };
 
     this.guessWord = this.guessWord.bind(this);
     this.clearData = this.clearData.bind(this);
+    this.removeLast = this.removeLast.bind(this);
     this.knowLevel = this.knowLevel.bind(this);
   }
 
@@ -56,13 +60,16 @@ class App extends Component {
       this.clearData();
     }
 
-    if (this.state.levels[level].words.includes(word)) {
+    if (this.state.levels[level].words.includes(word) && !this.state.wordsGuess.includes(word)) {
       const wordsGuess = this.state.wordsGuess.slice();
       wordsGuess.push(word);
+
+      const wordsGuessed = this.state.wordsGuessed + 1;
 
       this.setState({
         wordsGuess,
         word: '',
+        wordsGuessed,
       });
 
       this.knowLevel(wordsGuess);
@@ -70,6 +77,9 @@ class App extends Component {
   }
 
   clearData() { this.setState({ word: '' }); }
+  removeLast() {
+    this.setState({ word: this.state.word.slice(0, -1) });
+  }
 
   knowLevel(wordsGuess) {
     const level = this.state.currentLevel;
@@ -77,10 +87,12 @@ class App extends Component {
       let currentLevel = this.state.currentLevel + 1;
 
       if (currentLevel === this.state.levels.length) {
-        alert('🎉🎉 THE END 🎉🎉');
         currentLevel = 0;
+        if (window.confirm('🎉 THE END 🎉 \n Do you want to Tweet your score?')) {
+          window.open(`http://twitter.com/share?text=I%20found%20${this.state.wordsGuessed}%20words%20in&url=${window.location.origin}&hashtags=dev,game`)
+        }
       } else {
-        alert('🎉🎉 NEXT LEVEL 🎉🎉');
+        alert(`🎉 NEXT LEVEL : ${currentLevel + 1} 🎉`);
       }
 
       this.setState({
@@ -99,7 +111,10 @@ class App extends Component {
           title="Dev Game"
           numberOfGuessWords={this.state.wordsGuess.length}
           numberOfWords={this.state.levels[level].words.length}
+          level={level + 1}
         />
+
+        <GitHubRibbon />
 
         <section className="mw6 center">
           <LettersList
@@ -109,14 +124,15 @@ class App extends Component {
 
           <CurrentWord word={this.state.word} />
 
-          <WordsList words={this.state.wordsGuess} />
-
           <Button
-            text="Clear"
-            buttonHandleClick={this.clearData}
+            text="Delete"
+            buttonHandleClick={this.removeLast}
           />
+
+          <WordsList words={this.state.wordsGuess} />
         </section>
 
+        <Footer words={this.state.wordsGuessed} />
       </div>
     );
   }
