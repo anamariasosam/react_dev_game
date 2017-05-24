@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import Level from '../Level';
 
 import Header from './Header';
+import Button from './Button';
 import LettersList from './LettersList';
-import Word from './Word';
+import WordsList from './WordsList';
 import CurrentWord from './CurrentWord';
 
 class App extends Component {
@@ -36,7 +37,7 @@ class App extends Component {
 
   populateWords() {
     const levels = [
-      new Level({ level: 0, words: ['ruby', 'rails'] }),
+      new Level({ level: 0, words: ['ruby', 'rails', 'erb', 'irb', 'rb'] }),
       new Level({ level: 1, words: ['react', 'redux', 'jsx'] }),
     ];
 
@@ -84,32 +85,32 @@ class App extends Component {
   }
 
   render() {
-    const wordsGuessed = this.state.wordsGuess.map(word => <Word word={word} key={word} />);
     const level = this.state.currentLevel;
 
     return (
       <div>
-        <Header title="Dev Game" />
-        <p className="tc">
-          {this.state.wordsGuess.length} / {this.state.levels[level].words.length}
-        </p>
-        <LettersList
-          letters={this.state.levels[level].letters}
-          onLetterSelect={this.guessWord}
+        <Header
+          title="Dev Game"
+          numberOfGuessWords={this.state.wordsGuess.length}
+          numberOfWords={this.state.levels[level].words.length}
         />
-        <CurrentWord word={this.state.word} />
 
-        <ul className="list pv4">
-          {wordsGuessed}
-        </ul>
+        <section className="mw6 center">
+          <LettersList
+            letters={this.state.levels[level].letters}
+            onLetterSelect={this.guessWord}
+          />
 
-        <a
-          className="f6 ba bw1 pv2 mb2 near-black w3 tc db center no-underline dim"
-          onClick={this.clearData}
-          href="#0"
-        >
-          Clear
-        </a>
+          <CurrentWord word={this.state.word} />
+
+          <WordsList words={this.state.wordsGuess} />
+
+          <Button
+            text="Clear"
+            buttonHandleClick={this.clearData}
+          />
+        </section>
+
       </div>
     );
   }
