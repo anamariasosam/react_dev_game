@@ -5,7 +5,7 @@ const Letter = ({ letter, onLetterSelect }) =>
   (
     <li className="dib">
       <a
-        className="dim f6 bb bt bl ph3 mh2 mv2 pv2 dib near-white bg-light-purple w3 tc link"
+        className="grow f6 bb bt bl ph3 mh2 mv2 pv2 dib near-white bg-light-purple w3 tc link"
         onClick={() => onLetterSelect(letter)}
         href="#0"
       >
