@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const CurrentWord = ({ word }) =>
   (
-    <p className="f6 f5-ns b db tc purple bb mh5">
+    <p className="f6 f5-ns db tc hot-pink bb mh5">
       {word}
     </p>
   );
