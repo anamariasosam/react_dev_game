@@ -40,9 +40,9 @@ class App extends Component {
 
   populateWords() {
     const levels = [
-      new Level({ topic: 'HTML', words: ['ul', 'li', 'p', 'img', 'div'] }),
-      new Level({ topic: 'Ruby', words: ['ruby', 'rails', 'irb', 'rb', 'erb'] }),
-      new Level({ topic: 'React', words: ['react', 'jsx', 'state', 'this'] }),
+      new Level({ topic: 'HTML tags', words: ['ul', 'li', 'p', 'img', 'div'] }),
+      new Level({ topic: 'Ruby keywords', words: ['ruby', 'rails', 'irb', 'rb', 'erb'] }),
+      new Level({ topic: 'React keywords', words: ['react', 'jsx', 'state', 'this'] }),
     ];
 
     this.setState({
