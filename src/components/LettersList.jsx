@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Letter from './Letter';
 
 const LettersList = props => (
-  <ul className="list pv4">
+  <ul className="list pb4">
     { props.letters.map(letter => (
       <Letter
         letter={letter}

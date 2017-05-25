@@ -128,6 +128,14 @@ class App extends Component {
         <GitHubRibbon />
 
         <section className="mw6 center">
+          {
+            this.state.showWords &&
+            <WordsList
+              words={this.state.levels[level].words}
+              color="purple"
+            />
+          }
+
           <LettersList
             letters={this.state.levels[level].letters}
             onLetterSelect={this.guessWord}
@@ -147,17 +155,8 @@ class App extends Component {
 
           <WordsList
             words={this.state.wordsGuess}
-            color="bg-hot-pink"
+            color="hot-pink"
           />
-
-          {
-            this.state.showWords &&
-            <WordsList
-              words={this.state.levels[level].words}
-              color="bg-light-purple"
-            />
-          }
-
         </section>
 
         <Footer words={this.state.wordsGuessed} />
