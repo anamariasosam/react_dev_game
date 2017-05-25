@@ -26,11 +26,13 @@ class App extends Component {
       word: '',
       currentLevel: 0,
       wordsGuessed: 0,
+      showWords: false,
     };
 
     this.guessWord = this.guessWord.bind(this);
     this.removeLast = this.removeLast.bind(this);
     this.knowLevel = this.knowLevel.bind(this);
+    this.showWords = this.showWords.bind(this);
   }
 
   componentDidMount() {
@@ -99,8 +101,13 @@ class App extends Component {
       this.setState({
         currentLevel,
         wordsGuess: [],
+        showWords: false,
       });
     }
+  }
+
+  showWords() {
+    this.setState({ showWords: !this.state.showWords });
   }
 
   render() {
@@ -133,7 +140,24 @@ class App extends Component {
             buttonHandleClick={this.removeLast}
           />
 
-          <WordsList words={this.state.wordsGuess} />
+          <Button
+            text="I give up, show me the words"
+            buttonHandleClick={this.showWords}
+          />
+
+          <WordsList
+            words={this.state.wordsGuess}
+            color="bg-hot-pink"
+          />
+
+          {
+            this.state.showWords &&
+            <WordsList
+              words={this.state.levels[level].words}
+              color="bg-light-purple"
+            />
+          }
+
         </section>
 
         <Footer words={this.state.wordsGuessed} />

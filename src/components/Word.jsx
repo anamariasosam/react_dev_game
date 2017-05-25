@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Word = ({ word }) => (
-  <li className="dib mh2 mb2 bg-hot-pink shadow-4">
+const Word = ({ word, color }) => (
+  <li className={`dib mh2 mb2 shadow-4 ${color}`}>
     <p className="f6 f5-ns db tc white ph3">
       {word.toUpperCase()}
     </p>
@@ -11,6 +11,7 @@ const Word = ({ word }) => (
 
 Word.propTypes = {
   word: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
 };
 
 export default Word;
