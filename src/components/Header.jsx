@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Header = ({ title, numberOfGuessWords, numberOfWords, level, topic }) =>
+const Header =
+({ title,
+    numberOfGuessWords,
+    numberOfWords,
+    level,
+    topic,
+    levels,
+}) =>
 (
   <header className="tc pv4 pv5-ns">
     <img
@@ -14,7 +21,7 @@ const Header = ({ title, numberOfGuessWords, numberOfWords, level, topic }) =>
       <span className="b">Topic:</span> {topic}
     </p>
     <p className="f6 gray fw2 ttu tracked ">
-      <span className="b">Level:</span> {level}
+      <span className="b">Levels:</span> {level}  / {levels}
     </p>
     <p className="f6 gray fw2 ttu tracked">
       <span className="b">Words:</span> {numberOfGuessWords} / {numberOfWords}
@@ -26,6 +33,7 @@ Header.propTypes = {
   numberOfGuessWords: PropTypes.number.isRequired,
   numberOfWords: PropTypes.number.isRequired,
   level: PropTypes.number.isRequired,
+  levels: PropTypes.number.isRequired,
   topic: PropTypes.string.isRequired,
 };
 

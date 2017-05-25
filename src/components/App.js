@@ -85,7 +85,12 @@ class App extends Component {
       if (currentLevel === this.state.levels.length) {
         currentLevel = 0;
         if (window.confirm('🎉 THE END 🎉 \n Do you want to Tweet your score?')) {
-          window.open(`http://twitter.com/share?text=I%20found%20${this.state.wordsGuessed}%20words%20in&url=${window.location.origin}&hashtags=dev,game`)
+          window
+          .open(`http://twitter.com/share?text=I%20found%20
+                ${this.state.wordsGuessed}
+                %20words%20in&url=
+                ${window.location.origin}
+                &hashtags=dev,game`);
         }
       } else {
         alert(`🎉 NEXT LEVEL : ${currentLevel + 1} 🎉`);
@@ -109,6 +114,7 @@ class App extends Component {
           numberOfGuessWords={this.state.wordsGuess.length}
           numberOfWords={this.state.levels[level].words.length}
           level={level + 1}
+          levels={this.state.levels.length}
           topic={topic}
         />
 
